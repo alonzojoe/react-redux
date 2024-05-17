@@ -1,15 +1,22 @@
 import Counter from "./components/Counter";
+import Header from "./components/Header";
+import Auth from "./components/Auth";
+import UserProfile from "./components/UserProfile";
 import { useSelector } from "react-redux";
-const ComponentA = () => {
-  const counter = useSelector((state) => state.counter);
-  return <div style={{ color: "#fff" }}>{counter}</div>;
-};
 
 function App() {
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   return (
     <>
-      <Counter />
-      <ComponentA />
+      <Header />
+      {!isAuthenticated ? (
+        <Auth />
+      ) : (
+        <>
+          <UserProfile />
+          <Counter />
+        </>
+      )}
     </>
   );
 }
